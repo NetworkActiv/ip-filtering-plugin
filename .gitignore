@@ -1,0 +1,115 @@
+# Various Files and Folders
+.vs
+ipch
+*.sdf
+*.aps
+*.tlog
+*.log
+*.opendb
+!LICENCE.TXT
+NA_AUTAPF_Plugin_IPFiltering/_Binaries
+packages/cpprestsdk-master.zip
+packages/cpprestsdk-master/.vs
+packages/cpprestsdk-master/Binaries
+packages/cpprestsdk-master/Build
+packages/cpprestsdk-master/Build_android
+packages/cpprestsdk-master/Build_iOS
+packages/cpprestsdk-master/Debug
+packages/cpprestsdk-master/Intermediate
+packages/cpprestsdk-master/ipch
+packages/cpprestsdk-master/packages
+packages/cpprestsdk-master/Release/libs
+packages/cpprestsdk-master/Release/samples
+packages/cpprestsdk-master/Release/src
+packages/cpprestsdk-master/Release/tests
+packages/cpprestsdk-master/Release/CMakeLists.txt
+packages/cpprestsdk-master/Release/dirs.proj
+packages/cpprestsdk-master/Release/public_apis_doxyfile
+packages/cpprestsdk-master/.gitignore
+packages/cpprestsdk-master/build.root
+packages/cpprestsdk-master/cpprestsdk120.sln
+packages/cpprestsdk-master/cpprestsdk140.sdf
+packages/cpprestsdk-master/cpprestsdk140.sln
+packages/cpprestsdk-master/setup_ps_env_VS2013.ps1
+packages/cpprestsdk-master/setup_ps_env_VS2015.ps1
+packages/rapidjson.1.0.2
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+*.ipch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Executables
+*.exe
+*.out
+*.app
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+# =========================
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk

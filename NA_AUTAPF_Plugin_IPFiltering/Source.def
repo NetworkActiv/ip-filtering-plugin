@@ -1,0 +1,12 @@
+LIBRARY	NA_AUTAPF_Plugin_IPFiltering.dll
+EXPORTS
+   GetPluginType           @1
+   GetPluginTypeCmd        @2
+   GetPluginName           @3
+   GetPluginNameCmd        @4
+   GetPluginVersion        @5
+   GetPluginVersionCmd     @6
+   GetPluginDescription    @7
+   GetPluginDescriptionCmd @8
+   IsIPAllowed             @9
+   IsIPAllowedCmd          @10
