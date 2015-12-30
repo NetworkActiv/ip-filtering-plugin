@@ -12,6 +12,8 @@ This project creates a Windows DLL file that enables programs such as NetworkAct
 * Statically-built for minimal post-build dependency.
 * Uses an open and extensible filtering method that can essentially filter based on any value at any depth of the JSON returned from the server, regardless of whether contained in an Object or an Array. This allows support for pretty much any Web server that provides a JSON response for an IP address (or hostname).
 * Can filter on any number of fields using any number of servers.
+* Defaults to blocking (disallowing) an IP address if anything goes wrong, such as running out of memory or failing to establish a connection to one of the servers.
+* Exports \*Cmd versions of the functions for troubleshooting via *rundll32*. For example: *rundll32 NA_Plugin_IPFiltering_x64.dll,IsIPAllowedCmd 1.2.3.4*
 
 ### Licence
 
