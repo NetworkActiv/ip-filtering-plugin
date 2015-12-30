@@ -1,19 +1,19 @@
 
-#ifdef NA_AUTAPF_PLUGIN_IPFILTERING_EXPORTS
-#define NA_AUTAPF_PLUGIN_IPFILTERING_API __declspec(dllexport)
+#ifdef NA_PLUGIN_IPFILTERING_EXPORTS
+#define NA_PLUGIN_IPFILTERING_API __declspec(dllexport)
 #else
-#define NA_AUTAPF_PLUGIN_IPFILTERING_API __declspec(dllimport)
+#define NA_PLUGIN_IPFILTERING_API __declspec(dllimport)
 #endif
 
-// This class is exported from the NA_AUTAPF_Plugin_IPFiltering.dll
-class NA_AUTAPF_PLUGIN_IPFILTERING_API CNA_AUTAPF_Plugin_IPFiltering {
+// This class is exported from the NA_Plugin_IPFiltering.dll
+class NA_PLUGIN_IPFILTERING_API CNA_Plugin_IPFiltering {
 public:
-	CNA_AUTAPF_Plugin_IPFiltering(void);
+	CNA_Plugin_IPFiltering(void);
 };
 
-extern NA_AUTAPF_PLUGIN_IPFILTERING_API int nNA_AUTAPF_Plugin_IPFiltering;
+extern NA_PLUGIN_IPFILTERING_API int nNA_Plugin_IPFiltering;
 
-NA_AUTAPF_PLUGIN_IPFILTERING_API int fnNA_AUTAPF_Plugin_IPFiltering(void);
+NA_PLUGIN_IPFILTERING_API int fnNA_Plugin_IPFiltering(void);
 
 // The following functions are used internally:
 

@@ -1,6 +1,6 @@
 
 #include "stdafx.h"
-#include "NA_AUTAPF_Plugin_IPFiltering.h"
+#include "NA_Plugin_IPFiltering.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -534,7 +534,7 @@ __int64 GetFileSizeFromPath(std::wstring FilePath) {
 	return 0;
 }
 
-CNA_AUTAPF_Plugin_IPFiltering::CNA_AUTAPF_Plugin_IPFiltering(void)
+CNA_Plugin_IPFiltering::CNA_Plugin_IPFiltering(void)
 {
 }
 

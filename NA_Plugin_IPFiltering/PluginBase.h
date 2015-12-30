@@ -1,10 +1,10 @@
 #pragma once
 
-class AUTAPFPluginBase
+class PluginBase
 {
 public:
-	AUTAPFPluginBase();
-	~AUTAPFPluginBase();
+	PluginBase();
+	~PluginBase();
 	AFX_EXT_CLASS const WCHAR *GetPluginType();
 	AFX_EXT_CLASS void GetPluginTypeCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow);
 	AFX_EXT_CLASS const WCHAR *GetPluginName();

@@ -7,7 +7,7 @@ ipch
 *.log
 *.opendb
 !LICENCE.TXT
-NA_AUTAPF_Plugin_IPFiltering/_Binaries
+NA_Plugin_IPFiltering/_Binaries
 packages/cpprestsdk-master.zip
 packages/cpprestsdk-master/.vs
 packages/cpprestsdk-master/Binaries

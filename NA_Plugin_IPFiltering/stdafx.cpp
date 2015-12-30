@@ -1,5 +1,5 @@
 // stdafx.cpp : source file that includes just the standard includes
-// NA_AUTAPF_Plugin_IPFiltering.pch will be the pre-compiled header
+// NA_Plugin_IPFiltering.pch will be the pre-compiled header
 // stdafx.obj will contain the pre-compiled type information
 
 #include "stdafx.h"

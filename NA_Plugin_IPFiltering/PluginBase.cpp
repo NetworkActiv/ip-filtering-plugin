@@ -1,88 +1,88 @@
-#include "stdafx.h"
-#include "AUTAPFPluginBase.h"
-#include "NA_AUTAPF_Plugin_IPFiltering.h"
+﻿#include "stdafx.h"
+#include "PluginBase.h"
+#include "NA_Plugin_IPFiltering.h"
 
-AUTAPFPluginBase::AUTAPFPluginBase()
+PluginBase::PluginBase()
 {
 }
 
-AUTAPFPluginBase::~AUTAPFPluginBase()
+PluginBase::~PluginBase()
 {
 }
 
-const WCHAR * AUTAPFPluginBase::GetPluginType()
+const WCHAR * PluginBase::GetPluginType()
 {
 	return GetPluginTypeInternal();
 }
 
-void AUTAPFPluginBase::GetPluginTypeCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
+void PluginBase::GetPluginTypeCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
 {
 	MessageBox(NULL, GetPluginTypeInternal(), L"My Type Is", MB_OK);
 }
 
-const WCHAR * AUTAPFPluginBase::GetPluginName()
+const WCHAR * PluginBase::GetPluginName()
 {
 	return GetPluginNameInternal();
 }
 
-void AUTAPFPluginBase::GetPluginNameCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
+void PluginBase::GetPluginNameCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
 {
 	MessageBox(NULL, GetPluginNameInternal(), L"My Name Is", MB_OK);
 }
 
-const WCHAR * AUTAPFPluginBase::GetPluginDescription()
+const WCHAR * PluginBase::GetPluginDescription()
 {
 	return GetPluginDescriptionInternal();
 }
 
-void AUTAPFPluginBase::GetPluginDescriptionCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
+void PluginBase::GetPluginDescriptionCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
 {
 	MessageBox(NULL, GetPluginDescriptionInternal(), L"My Description Is", MB_OK);
 }
 
-const WCHAR * AUTAPFPluginBase::GetPluginVersion()
+const WCHAR * PluginBase::GetPluginVersion()
 {
 	return GetPluginVersionInternal();
 }
 
-void AUTAPFPluginBase::GetPluginVersionCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
+void PluginBase::GetPluginVersionCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
 {
 	MessageBox(NULL, GetPluginVersionInternal(), L"My Version Is", MB_OK);
 }
 
-const WCHAR * AUTAPFPluginBase::GetPluginTypeInternal()
+const WCHAR * PluginBase::GetPluginTypeInternal()
 {
 	return L"ClientIPFiltering";
 }
 
-const WCHAR * AUTAPFPluginBase::GetPluginNameInternal()
+const WCHAR * PluginBase::GetPluginNameInternal()
 {
 	return L"HTTP-Based Client IP Filter";
 }
 
-const WCHAR * AUTAPFPluginBase::GetPluginDescriptionInternal()
+const WCHAR * PluginBase::GetPluginDescriptionInternal()
 {
 	return L"This plugin filters client IP addresses using an API from a third-party. Communication is accepted in JSON.";
 }
 
-const WCHAR * AUTAPFPluginBase::GetPluginVersionInternal()
+const WCHAR * PluginBase::GetPluginVersionInternal()
 {
 	return L"1.0.0";
 }
 
-bool AUTAPFPluginBase::IsIPAllowed(const WCHAR *IPAddress)
+bool PluginBase::IsIPAllowed(const WCHAR *IPAddress)
 {
 	return IsIPAllowedInternal(IPAddress);
 }
 
-void CALLBACK AUTAPFPluginBase::IsIPAllowedCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
+void CALLBACK PluginBase::IsIPAllowedCmd(HINSTANCE hinst, LPSTR IPAddress, int nCmdShow)
 {
 	MessageBox(NULL, IsIPAllowedInternal(CString(IPAddress)) ? L"VALID" : L"INVALID", L"The Provided IP Is", MB_OK);
 }
 
 SettingsBase Settings;
 
-bool AUTAPFPluginBase::IsIPAllowedInternal(const WCHAR * IPAddress)
+bool PluginBase::IsIPAllowedInternal(const WCHAR * IPAddress)
 {
 	if (!Settings.HasLoaded) {
 		DoLogEntry(L"IP " + std::wstring(IPAddress) + L" FAILED: No settings are loaded");
@@ -114,7 +114,8 @@ bool AUTAPFPluginBase::IsIPAllowedInternal(const WCHAR * IPAddress)
 					.then([=](size_t BytesRead) {
 					// Called once all data has been received;
 					std::string StringBuffer = ReceiveBuffer->collection();
-					if (StringBuffer.find("﻿") == 0)// EF BB BF = UTF8 Byte-Order Mark (BOM);
+					char BOMChars[5] = { (char)0xEF, (char)0xBB, (char)0xBF, (char)0x00, (char)0x00 };
+					if (StringBuffer.find(BOMChars) == 0)// EF BB BF = UTF8 Byte-Order Mark (BOM);
 						StringBuffer = StringBuffer.substr(3);
 					rapidjson::Document InDoc;
 					InDoc.Parse(StringBuffer.data());

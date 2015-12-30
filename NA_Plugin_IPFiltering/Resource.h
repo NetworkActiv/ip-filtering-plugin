@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by NA_AUTAPF_Plugin_IPFiltering.rc
+// Used by NA_Plugin_IPFiltering.rc
 //
 
 #define IDS_APP_TITLE			103

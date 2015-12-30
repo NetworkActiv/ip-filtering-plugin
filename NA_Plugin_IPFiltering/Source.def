@@ -1,4 +1,4 @@
-LIBRARY	NA_AUTAPF_Plugin_IPFiltering.dll
+LIBRARY	NA_Plugin_IPFiltering.dll
 EXPORTS
    GetPluginType           @1
    GetPluginTypeCmd        @2
