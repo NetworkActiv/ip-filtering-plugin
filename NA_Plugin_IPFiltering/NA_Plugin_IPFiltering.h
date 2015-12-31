@@ -1,20 +1,4 @@
 
-#ifdef NA_PLUGIN_IPFILTERING_EXPORTS
-#define NA_PLUGIN_IPFILTERING_API __declspec(dllexport)
-#else
-#define NA_PLUGIN_IPFILTERING_API __declspec(dllimport)
-#endif
-
-// This class is exported from the NA_Plugin_IPFiltering.dll
-class NA_PLUGIN_IPFILTERING_API CNA_Plugin_IPFiltering {
-public:
-	CNA_Plugin_IPFiltering(void);
-};
-
-extern NA_PLUGIN_IPFILTERING_API int nNA_Plugin_IPFiltering;
-
-NA_PLUGIN_IPFILTERING_API int fnNA_Plugin_IPFiltering(void);
-
 // The following functions are used internally:
 
 void DoLogEntry(const char *InText);
@@ -31,7 +15,11 @@ std::wstring GetTypeText(rapidjson::Type InType);
 std::wstring GetValueString(rapidjson::Value& Val);
 std::wstring GetValueFromPath(std::wstring Path, rapidjson::Document &InDoc);/* Supports both value-pair names and array indices */
 std::vector<std::wstring> StringSplit(std::wstring InString, std::wstring SplitOn);
+std::vector<std::string>  StringSplit(std::string InString, std::string SplitOn);
 std::wstring ReplaceOne(std::wstring InString, std::wstring Find, std::wstring Replace);
+std::wstring ReplaceAll(std::wstring InString, std::wstring Find, std::wstring Replace);
+std::string  ReplaceOne(std::string InString, std::string Find, std::string Replace);
+std::string  ReplaceAll(std::string InString, std::string Find, std::string Replace);
 
 class SettingsBase {
 public:

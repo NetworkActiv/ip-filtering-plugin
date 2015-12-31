@@ -415,7 +415,20 @@ std::vector<std::wstring> StringSplit(std::wstring InString, std::wstring SplitO
 	size_t Loc = 0, LastLoc = 0;
 	while ((Loc = InString.find(SplitOn, Loc)) != -1) {
 		OutList.push_back(InString.substr(LastLoc, Loc - LastLoc));
-		Loc++;
+		Loc += SplitOn.length();
+		LastLoc = Loc;
+	}
+	if (LastLoc < InString.length())
+		OutList.push_back(InString.substr(LastLoc));
+	return OutList;
+}
+
+std::vector<std::string> StringSplit(std::string InString, std::string SplitOn) {
+	std::vector<std::string> OutList;
+	size_t Loc = 0, LastLoc = 0;
+	while ((Loc = InString.find(SplitOn, Loc)) != -1) {
+		OutList.push_back(InString.substr(LastLoc, Loc - LastLoc));
+		Loc += SplitOn.length();
 		LastLoc = Loc;
 	}
 	if (LastLoc < InString.length())
@@ -534,10 +547,6 @@ __int64 GetFileSizeFromPath(std::wstring FilePath) {
 	return 0;
 }
 
-CNA_Plugin_IPFiltering::CNA_Plugin_IPFiltering(void)
-{
-}
-
 SettingsBase::Server::~Server()
 {
 	if (WebClient != NULL) {
@@ -552,4 +561,32 @@ std::wstring ReplaceOne(std::wstring InString, std::wstring Find, std::wstring R
 	if (Loc == -1)
 		return InString;
 	return InString.substr(0, Loc) + Replace + (Loc + Find.length() >= InString.length() ? L"" : InString.substr(Loc + Find.length()));
+}
+
+std::wstring ReplaceAll(std::wstring InString, std::wstring Find, std::wstring Replace)
+{
+	std::vector<std::wstring> StringPieces = StringSplit(InString, Find);
+	std::wstring Result = L"";
+	for each(std::wstring ThisPiece in StringPieces) {
+		Result += ThisPiece + Replace;
+	}
+	return Result.substr(0, Result.length() - Replace.length());
+}
+
+std::string ReplaceOne(std::string InString, std::string Find, std::string Replace)
+{
+	size_t Loc = InString.find(Find);
+	if (Loc == -1)
+		return InString;
+	return InString.substr(0, Loc) + Replace + (Loc + Find.length() >= InString.length() ? "" : InString.substr(Loc + Find.length()));
+}
+
+std::string ReplaceAll(std::string InString, std::string Find, std::string Replace)
+{
+	std::vector<std::string> StringPieces = StringSplit(InString, Find);
+	std::string Result = "";
+	for each(std::string ThisPiece in StringPieces) {
+		Result += ThisPiece + Replace;
+	}
+	return Result.substr(0, Result.length() - Replace.length());
 }
