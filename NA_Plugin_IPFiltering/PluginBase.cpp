@@ -67,7 +67,7 @@ const WCHAR * PluginBase::GetPluginDescriptionInternal()
 
 const WCHAR * PluginBase::GetPluginVersionInternal()
 {
-	return L"1.0.4";
+	return L"1.0.5";
 }
 
 bool PluginBase::IsIPAllowed(const WCHAR *IPAddress)
