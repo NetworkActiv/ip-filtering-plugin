@@ -418,7 +418,7 @@ std::vector<std::wstring> StringSplit(std::wstring InString, std::wstring SplitO
 		Loc += SplitOn.length();
 		LastLoc = Loc;
 	}
-	if (LastLoc < InString.length())
+	if (LastLoc <= InString.length())
 		OutList.push_back(InString.substr(LastLoc));
 	return OutList;
 }
@@ -431,7 +431,7 @@ std::vector<std::string> StringSplit(std::string InString, std::string SplitOn) 
 		Loc += SplitOn.length();
 		LastLoc = Loc;
 	}
-	if (LastLoc < InString.length())
+	if (LastLoc <= InString.length())
 		OutList.push_back(InString.substr(LastLoc));
 	return OutList;
 }
