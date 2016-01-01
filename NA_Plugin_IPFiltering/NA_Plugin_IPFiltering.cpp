@@ -33,6 +33,16 @@ int main()
     return nRetCode;
 }
 
+void MessageBox(std::string Message, std::string Title)
+{
+	MessageBoxA(NULL, Message.c_str(), Title.c_str(), MB_OK);
+}
+
+void MessageBox(std::wstring Message, std::wstring Title)
+{
+	MessageBoxW(NULL, Message.c_str(), Title.c_str(), MB_OK);
+}
+
 void DoLogEntry(std::wstring InText) {
 	DoLogEntry(InText.c_str());
 }
@@ -58,12 +68,13 @@ void DoLogEntry(const char *InText) {
 	if (OutFile == INVALID_HANDLE_VALUE)
 		return;
 	SetFilePointer(OutFile, 0, 0, FILE_END);
-	WriteFile(OutFile, "[", 1, NULL, NULL);
+	DWORD BytesInOut = 0;
+	WriteFile(OutFile, "[", 1, &BytesInOut, NULL);
 	const char *CurTime = GetCurrentDateTimeA();
-	WriteFile(OutFile, CurTime, strlen(CurTime), NULL, NULL);
-	WriteFile(OutFile, "]: ", 3, NULL, NULL);
-	WriteFile(OutFile, InText, strlen(InText), NULL, NULL);
-	WriteFile(OutFile, "\r\n", 2, NULL, NULL);
+	WriteFile(OutFile, CurTime, strlen(CurTime), &BytesInOut, NULL);
+	WriteFile(OutFile, "]: ", 3, &BytesInOut, NULL);
+	WriteFile(OutFile, InText, strlen(InText), &BytesInOut, NULL);
+	WriteFile(OutFile, "\r\n", 2, &BytesInOut, NULL);
 	CloseHandle(OutFile);
 }
 
@@ -86,13 +97,19 @@ const char *GetDLLPathA() {
 }
 
 const char *GetCurrentDateTimeA() {// Returns a string similar to ISO 8601;
-	time_t Now;
-	time(&Now);
-	tm Tm;
-	gmtime_s(&Tm, &Now);
-	static char CurrentDateTime[24];
-	strftime(CurrentDateTime, 24 - 1, "%F %T", &Tm);
-	return CurrentDateTime;
+	SYSTEMTIME Now;
+	GetLocalTime(&Now);
+	static char CurrentDateTimeA[24];
+	sprintf_s(CurrentDateTimeA, 24 - 1, "%02d-%02d-%02d %02d:%02d:%02d", Now.wYear, Now.wMonth, Now.wDay, Now.wHour, Now.wMinute, Now.wSecond);
+	return CurrentDateTimeA;
+}
+
+const WCHAR *GetCurrentDateTimeW() {// Returns a string similar to ISO 8601;
+	SYSTEMTIME Now;
+	GetLocalTime(&Now);
+	static WCHAR CurrentDateTimeW[24];
+	wnsprintfW(CurrentDateTimeW, 24 - 1, L"%02d-%02d-%02d %02d:%02d:%02d", Now.wYear, Now.wMonth, Now.wDay, Now.wHour, Now.wMinute, Now.wSecond);
+	return CurrentDateTimeW;
 }
 
 SettingsBase::SettingsBase(){
@@ -455,13 +472,14 @@ std::wstring ReadAllText(std::wstring FilePath) {
 	bool IsUnicode = (TheWord == 0xFEFF);
 	bool IsBackwardUnicode = (TheWord == 0xFFFE);
 	// Handle it:
+	DWORD BytesInOut = 0;
 	if (IsUnicode || IsBackwardUnicode) {// Is a Unicode-16 file
 		WCHAR *TheBigBuffer = (WCHAR *)malloc((int)TheFileSize + 2);
 		if (TheBigBuffer == 0) {
 			CloseHandle(InFile);
 			return L"";
 		}
-		ReadFile(InFile, TheBigBuffer, (int)(TheFileSize - 2), NULL, NULL);
+		ReadFile(InFile, TheBigBuffer, (int)(TheFileSize - 2), &BytesInOut, NULL);
 		CloseHandle(InFile);
 		TheBigBuffer[(TheFileSize - 2) / 2] = 0;
 		if (IsBackwardUnicode) {// Big endian format, so reverse it
@@ -479,7 +497,7 @@ std::wstring ReadAllText(std::wstring FilePath) {
 			return L"";
 		}
 		memcpy(TheLittleBuffer, &TheWord, 2);// Since it was not Unicode-16, we keep the first two chars
-		ReadFile(InFile, TheLittleBuffer + 2, (int)(TheFileSize - 2), NULL, NULL);
+		ReadFile(InFile, TheLittleBuffer + 2, (int)(TheFileSize - 2), &BytesInOut, NULL);
 		CloseHandle(InFile);
 		TheLittleBuffer[TheFileSize] = 0;
 		TheLoadedString = UTF8ToUTF16(TheLittleBuffer);

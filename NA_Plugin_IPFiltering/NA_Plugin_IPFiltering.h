@@ -1,12 +1,15 @@
 
 // The following functions are used internally:
 
+void MessageBox(std::string Message, std::string Title = "");
+void MessageBox(std::wstring Message, std::wstring Title = L"");
 void DoLogEntry(const char *InText);
 void DoLogEntry(const WCHAR *InText);
 void DoLogEntry(std::wstring InText);
 const WCHAR *GetDLLPathW();
 const char *GetDLLPathA();
-const char *GetCurrentDateTimeA();
+const char  *GetCurrentDateTimeA();
+const WCHAR *GetCurrentDateTimeW();
 __int64 GetFileSizeFromPath(std::wstring FilePath);
 std::wstring ReadAllText(std::wstring FilePath);
 std::wstring UTF8ToUTF16(const char *UTF8Text);
